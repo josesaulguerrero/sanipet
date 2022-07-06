@@ -2,6 +2,7 @@ package co.com.sanipet.modules.appointments.entities;
 
 import co.com.sanipet.utils.HashGenerator;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Patient {
@@ -10,14 +11,14 @@ public class Patient {
     private final String breed;
     private final String clinicalHistoryId;
     private final Boolean isVaccinated;
-    private final Date lastDateOfDeworming;
+    private final LocalDate lastDateOfDeworming;
     private final Owner owner;
 
-    public Patient(Animals species, String name, String breed, String clinicalHistoryId, Boolean isVaccinated, Date lastDateOfDeworming, Owner owner) {
+    public Patient(Animals species, String name, String breed, Boolean isVaccinated, LocalDate lastDateOfDeworming, Owner owner) {
         this.species = species;
         this.name = name;
         this.breed = breed;
-        this.clinicalHistoryId = clinicalHistoryId;
+        this.clinicalHistoryId = generateHistoryId();
         this.isVaccinated = isVaccinated;
         this.lastDateOfDeworming = lastDateOfDeworming;
         this.owner = owner;
@@ -47,7 +48,7 @@ public class Patient {
         return isVaccinated;
     }
 
-    public Date getLastDateOfDeworming() {
+    public LocalDate getLastDateOfDeworming() {
         return lastDateOfDeworming;
     }
 
@@ -57,6 +58,14 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient{" + "species=" + species + ", name='" + name + '\'' + ", breed='" + breed + '\'' + ", clinicalHistoryId='" + clinicalHistoryId + '\'' + ", isVaccinated=" + isVaccinated + ", lastDateOfDeworming=" + lastDateOfDeworming + '}';
+        return "Patient{" +
+                "species=" + species +
+                ", name='" + name + '\'' +
+                ", breed='" + breed + '\'' +
+                ", clinicalHistoryId='" + clinicalHistoryId + '\'' +
+                ", isVaccinated=" + isVaccinated +
+                ", lastDateOfDeworming=" + lastDateOfDeworming +
+                ", owner=" + owner +
+                '}';
     }
 }

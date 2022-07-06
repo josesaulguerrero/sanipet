@@ -4,11 +4,11 @@ public class Owner extends Person {
     private final Integer age;
 
     public Owner(String DNI, String name, String surname, String cellphone, Integer age) {
-        this.age = age;
         this.DNI = DNI;
-        this.cellphone = cellphone;
         this.name = name;
         this.surname = surname;
+        this.cellphone = cellphone;
+        this.age = age;
     }
 
     public Integer getAge() {
