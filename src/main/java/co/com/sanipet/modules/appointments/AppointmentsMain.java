@@ -5,9 +5,7 @@ import co.com.sanipet.modules.appointments.entities.Owner;
 import co.com.sanipet.modules.appointments.entities.Patient;
 import co.com.sanipet.utils.ConsoleMenu;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 public class AppointmentsMain {
@@ -23,13 +21,17 @@ public class AppointmentsMain {
 
     private static void registerNewAppointment() {
         Optional<Owner> owner = Optional.of(getOwnerInformation());
-        Optional<Patient> patient = Optional.empty();
-        while (patient.isEmpty()) {
-            try {
-                patient = Optional.of(getPatientInformation(owner.get()));
-            } catch (Exception e) {
-                System.out.println("We're sorry, the information you supplied is not right. Please try again.");
+        if(owner.get().getAge() >= 18) {
+            Optional<Patient> patient = Optional.empty();
+            while (patient.isEmpty()) {
+                try {
+                    patient = Optional.of(getPatientInformation(owner.get()));
+                } catch (Exception e) {
+                    System.out.println("We're sorry, the information you supplied is not right. Please try again.");
+                }
             }
+        } else {
+            System.out.println("We're sorry, you are under 18 years old and we can't help you.");
         }
     }
 
