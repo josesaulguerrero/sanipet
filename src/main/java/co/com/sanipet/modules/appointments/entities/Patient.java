@@ -5,14 +5,14 @@ import co.com.sanipet.utils.HashGenerator;
 import java.util.Date;
 
 public class Patient {
-    private final Animal species;
+    private final Animals species;
     private final String name;
     private final String breed;
     private final String clinicalHistoryId;
     private final Boolean isVaccinated;
     private final Date lastDateOfDeworming;
 
-    public Patient(Animal species, String name, String breed, String clinicalHistoryId, Boolean isVaccinated, Date lastDateOfDeworming) {
+    public Patient(Animals species, String name, String breed, String clinicalHistoryId, Boolean isVaccinated, Date lastDateOfDeworming) {
         this.species = species;
         this.name = name;
         this.breed = breed;
@@ -25,7 +25,7 @@ public class Patient {
         return HashGenerator.generateRandomAlphanumericString(6);
     }
 
-    public Animal getSpecies() {
+    public Animals getSpecies() {
         return species;
     }
 
@@ -47,5 +47,10 @@ public class Patient {
 
     public Date getLastDateOfDeworming() {
         return lastDateOfDeworming;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" + "species=" + species + ", name='" + name + '\'' + ", breed='" + breed + '\'' + ", clinicalHistoryId='" + clinicalHistoryId + '\'' + ", isVaccinated=" + isVaccinated + ", lastDateOfDeworming=" + lastDateOfDeworming + '}';
     }
 }

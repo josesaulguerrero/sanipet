@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b180a09f-b8cf-406b-92c6-1c4acbb5088d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Person.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Roles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Schedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/WorkingDays.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/utils/ConsoleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/utils/ConsoleMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Animals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Patient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +21,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -42,6 +46,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="co.com.sanipet.modules.appointments.entities" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="co.com.sanipet.Application" />
