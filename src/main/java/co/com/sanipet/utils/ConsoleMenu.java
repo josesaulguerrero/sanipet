@@ -1,7 +1,6 @@
 package co.com.sanipet.utils;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class ConsoleMenu {
