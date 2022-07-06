@@ -11,14 +11,16 @@ public class Patient {
     private final String clinicalHistoryId;
     private final Boolean isVaccinated;
     private final Date lastDateOfDeworming;
+    private final Owner owner;
 
-    public Patient(Animals species, String name, String breed, String clinicalHistoryId, Boolean isVaccinated, Date lastDateOfDeworming) {
+    public Patient(Animals species, String name, String breed, String clinicalHistoryId, Boolean isVaccinated, Date lastDateOfDeworming, Owner owner) {
         this.species = species;
         this.name = name;
         this.breed = breed;
         this.clinicalHistoryId = clinicalHistoryId;
         this.isVaccinated = isVaccinated;
         this.lastDateOfDeworming = lastDateOfDeworming;
+        this.owner = owner;
     }
 
     private String generateHistoryId() {
@@ -47,6 +49,10 @@ public class Patient {
 
     public Date getLastDateOfDeworming() {
         return lastDateOfDeworming;
+    }
+
+    public Owner getOwner() {
+        return owner;
     }
 
     @Override
