@@ -1,2 +1,4 @@
-package co.com.sanipet.modules.stock;public class StockMain {
+package co.com.sanipet.modules.stock;
+
+public class StockMain {
 }
