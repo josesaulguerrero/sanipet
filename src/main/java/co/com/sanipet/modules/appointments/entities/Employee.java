@@ -4,13 +4,14 @@ public class Employee extends Person {
     Roles role;
     Schedule schedule;
 
-    public Employee(String DNI, String name, String surname, String cellphone, Roles role, WorkingDays[] activeDays) {
+    public Employee(String DNI, String name, String surname, String cellphone, Roles role,
+                    Schedule schedule) {
         this.DNI = DNI;
         this.cellphone = cellphone;
         this.name = name;
         this.surname = surname;
         this.role = role;
-        this.schedule = new Schedule(activeDays);
+        this.schedule = schedule;
     }
 
     public String getDNI() {
