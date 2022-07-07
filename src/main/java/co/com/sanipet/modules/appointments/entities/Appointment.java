@@ -5,11 +5,11 @@ import java.time.LocalDate;
 public class Appointment {
     Statuses status = Statuses.NOT_STARTED;
     AppointmentTypes type;
-    LocalDate date;
+    WorkingDays date;
     Patient patient;
     Employee employee;
 
-    public Appointment(AppointmentTypes type, LocalDate date, Patient patient, Employee employee) {
+    public Appointment(AppointmentTypes type, WorkingDays date, Patient patient, Employee employee) {
         this.type = type;
         this.date = date;
         this.patient = patient;
@@ -24,7 +24,7 @@ public class Appointment {
         return type;
     }
 
-    public LocalDate getDate() {
+    public WorkingDays getDate() {
         return date;
     }
 

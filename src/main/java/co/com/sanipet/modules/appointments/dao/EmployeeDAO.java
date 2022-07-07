@@ -31,6 +31,11 @@ public class EmployeeDAO {
         return employees;
     }
 
+    public Employee findByDNI (String DNI) {
+        // TODO find by DNI
+        return employees.get(0);
+    }
+
     public List<Employee> findAvailable() {
         return employees.stream().filter((employee) -> {
             WorkingDays today =

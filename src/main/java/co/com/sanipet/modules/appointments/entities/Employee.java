@@ -13,6 +13,18 @@ public class Employee extends Person {
         this.schedule = new Schedule(activeDays);
     }
 
+    public String getDNI() {
+        return this.DNI;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getSurname() {
+        return this.surname;
+    }
+
     public Roles getRole() {
         return role;
     }

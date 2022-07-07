@@ -1,14 +1,15 @@
 package co.com.sanipet.modules.appointments;
 
-import co.com.sanipet.modules.appointments.entities.Animals;
-import co.com.sanipet.modules.appointments.entities.Owner;
-import co.com.sanipet.modules.appointments.entities.Patient;
+import co.com.sanipet.modules.appointments.dao.EmployeeDAO;
+import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 public class AppointmentsMain {
+
+    private static final EmployeeDAO employeeDAO = new EmployeeDAO();
     public static void main() {
         int selectedOption = Integer.parseInt(ConsoleMenu.renderOptionsList("1. Register a new appointment", "2. Display the history"));
         callMethod(selectedOption);
@@ -38,22 +39,32 @@ public class AppointmentsMain {
 
     private static Owner getOwnerInformation() {
         System.out.println("Alright! At first we need some information about the owner.");
-        String ownerDNI = ConsoleMenu.renderQuestion("What's your DNI?");
-        String ownerName = ConsoleMenu.renderQuestion("What's your name?");
-        String ownerSurname = ConsoleMenu.renderQuestion("What's your surname?");
-        String ownerCellphone = ConsoleMenu.renderQuestion("What's your contact cellphone?");
-        int ownerAge = Integer.parseInt(ConsoleMenu.renderQuestion("What's your age?"));
-        return new Owner(ownerDNI, ownerName, ownerSurname, ownerCellphone, ownerAge);
+        String DNI = ConsoleMenu.renderQuestion("What's your DNI?");
+        String name = ConsoleMenu.renderQuestion("What's your name?");
+        String surname = ConsoleMenu.renderQuestion("What's your surname?");
+        String cellphone = ConsoleMenu.renderQuestion("What's your contact cellphone?");
+        int age = Integer.parseInt(ConsoleMenu.renderQuestion("What's your age?"));
+        return new Owner(DNI, name, surname, cellphone, age);
     }
 
     private static Patient getPatientInformation(Owner owner) throws Exception {
         System.out.println("Okay! now let's check your cute pet's information.");
-        Animals patientSpecies = Animals.valueOf(ConsoleMenu.renderQuestion("Is your pet a cat or a dog? pick one and write it in ALL-CAPS").toUpperCase());
-        String patientName = ConsoleMenu.renderQuestion("What's their name?");
-        String patientBreed = ConsoleMenu.renderQuestion("What's their breed?");
-        boolean isPatientVaccinated = Boolean.parseBoolean(ConsoleMenu.renderQuestion("Are they vaccinated? (true/false) "));
+        Animals species = Animals.valueOf(ConsoleMenu.renderQuestion("Is your pet a cat or a dog? pick one and write it in ALL-CAPS").toUpperCase());
+        String name = ConsoleMenu.renderQuestion("What's their name?");
+        String breed = ConsoleMenu.renderQuestion("What's their breed?");
+        boolean isVaccinated = Boolean.parseBoolean(ConsoleMenu.renderQuestion("Are they vaccinated? (true/false) "));
         LocalDate dateLastDeworming = LocalDate.parse(ConsoleMenu.renderQuestion("When were they last dewormed? (yyyy-mm-dd)"));
-        return new Patient(patientSpecies, patientName, patientBreed, isPatientVaccinated, dateLastDeworming, owner);
+        return new Patient(species, name, breed, isVaccinated, dateLastDeworming, owner);
+    }
+
+    private static Appointment getAppointmentInformation() {
+        AppointmentTypes type = AppointmentTypes.valueOf(ConsoleMenu.renderQuestion("What kind of " +
+                "appointment do you need?"));
+        WorkingDays date = WorkingDays.valueOf(ConsoleMenu.renderQuestion("What week-day should " +
+                "your appointment be scheduled to?"));
+        // TODO find available doctors based on the type of appointment
+        // return new Appointment();
+        return null;
     }
 
     private static void displayHistory() {
