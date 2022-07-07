@@ -13,6 +13,14 @@ public class Employee extends Person {
         this.schedule = new Schedule(activeDays);
     }
 
+    public Roles getRole() {
+        return role;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
     @Override
     public String toString() {
         return "Employee{" + "role=" + role + ", schedule=" + schedule + ", DNI='" + DNI + '\'' + ", name='" + name + '\'' + ", surname='" + surname + '\'' + ", cellphone='" + cellphone + '\'' + '}';

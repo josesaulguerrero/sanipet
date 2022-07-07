@@ -1,6 +1,7 @@
 package co.com.sanipet;
 
 import co.com.sanipet.modules.appointments.AppointmentsMain;
+import co.com.sanipet.modules.appointments.dao.EmployeeDAO;
 import co.com.sanipet.utils.ConsoleMenu;
 
 import java.util.Optional;

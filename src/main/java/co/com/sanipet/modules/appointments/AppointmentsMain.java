@@ -46,7 +46,7 @@ public class AppointmentsMain {
     }
 
     private static Patient getPatientInformation(Owner owner) throws Exception {
-        System.out.println("That's great! now let's check your cute pet's information.");
+        System.out.println("Okay! now let's check your cute pet's information.");
         Animals patientSpecies = Animals.valueOf(ConsoleMenu.renderQuestion("Is your pet a cat or a dog? pick one and write it in ALL-CAPS").toUpperCase());
         String patientName = ConsoleMenu.renderQuestion("What's their name?");
         String patientBreed = ConsoleMenu.renderQuestion("What's their breed?");

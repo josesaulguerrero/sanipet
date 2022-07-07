@@ -9,6 +9,10 @@ public class Schedule {
         this.activeDays = activeDays;
     }
 
+    public WorkingDays[] getActiveDays() {
+        return activeDays;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" + "activeDays=" + Arrays.toString(activeDays) + '}';
