@@ -1,20 +1,19 @@
 package co.com.sanipet.modules.appointments.entities;
 
-import java.util.Arrays;
+import java.util.Map;
 
 public class Schedule {
-    WorkingDays[] activeDays;
 
-    public Schedule(WorkingDays[] activeDays) {
+    Map<WorkingDays, String> activeDays;
+
+    public Schedule(Map<WorkingDays, String> activeDays) {
         this.activeDays = activeDays;
-    }
-
-    public WorkingDays[] getActiveDays() {
-        return activeDays;
     }
 
     @Override
     public String toString() {
-        return "Schedule{" + "activeDays=" + Arrays.toString(activeDays) + '}';
+        return "Schedule{" +
+                "   activeDays=" + activeDays +
+                '}';
     }
 }
