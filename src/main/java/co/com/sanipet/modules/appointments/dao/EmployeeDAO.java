@@ -6,8 +6,10 @@ import co.com.sanipet.modules.appointments.entities.Schedule;
 import co.com.sanipet.modules.appointments.entities.WorkingDays;
 
 import java.time.DayOfWeek;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeDAO {
 
@@ -47,14 +49,17 @@ public class EmployeeDAO {
         return employees;
     }
 
+    public List<Employee> findAvailable(Roles role, WorkingDays day) {
+        return employees
+                .stream()
+                .filter(employee -> employee.getRole() == role)
+                .filter(employee -> employee.getSchedule().getActiveDays().containsKey(day))
+                .collect(Collectors.toList());
+    }
+
     public Employee findByDNI (String DNI) {
         // TODO find by DNI
         return employees.get(0);
 
-    }
-
-    public List<Employee> findAvailable() {
-        // TODO find available
-         return null;
     }
 }
