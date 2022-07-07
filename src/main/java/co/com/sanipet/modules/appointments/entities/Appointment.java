@@ -1,19 +1,17 @@
 package co.com.sanipet.modules.appointments.entities;
 
-import java.time.LocalDate;
-
 public class Appointment {
     Statuses status = Statuses.NOT_STARTED;
     AppointmentTypes type;
     WorkingDays date;
     Patient patient;
-    Employee employee;
+    Employee employeeInCharge;
 
     public Appointment(AppointmentTypes type, WorkingDays date, Patient patient, Employee employee) {
         this.type = type;
         this.date = date;
         this.patient = patient;
-        this.employee = employee;
+        this.employeeInCharge = employee;
     }
 
     public Statuses getStatus() {
@@ -32,7 +30,7 @@ public class Appointment {
         return patient;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getEmployeeInCharge() {
+        return employeeInCharge;
     }
 }

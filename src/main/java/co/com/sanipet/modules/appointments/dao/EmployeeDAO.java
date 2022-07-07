@@ -5,6 +5,7 @@ import co.com.sanipet.modules.appointments.entities.Roles;
 import co.com.sanipet.modules.appointments.entities.Schedule;
 import co.com.sanipet.modules.appointments.entities.WorkingDays;
 
+import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,9 +50,11 @@ public class EmployeeDAO {
     public Employee findByDNI (String DNI) {
         // TODO find by DNI
         return employees.get(0);
+
     }
 
     public List<Employee> findAvailable() {
         // TODO find available
+         return null;
     }
 }

@@ -28,8 +28,6 @@ public class Application {
             case 2:
                 // TODO call medicines module.
                 break;
-            default:
-                break;
         }
     }
 }
