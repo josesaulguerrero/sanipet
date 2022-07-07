@@ -21,7 +21,7 @@ public class AppointmentsMain {
 
     private static void registerNewAppointment() {
         Optional<Owner> owner = Optional.of(getOwnerInformation());
-        if(owner.get().getAge() >= 18) {
+        if (owner.get().getAge() >= 18) {
             Optional<Patient> patient = Optional.empty();
             while (patient.isEmpty()) {
                 try {
@@ -30,6 +30,7 @@ public class AppointmentsMain {
                     System.out.println("We're sorry, the information you supplied is not right. Please try again.");
                 }
             }
+
         } else {
             System.out.println("We're sorry, you are under 18 years old and we can't help you.");
         }

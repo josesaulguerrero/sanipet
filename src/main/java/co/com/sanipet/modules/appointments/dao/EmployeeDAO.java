@@ -4,7 +4,6 @@ import co.com.sanipet.modules.appointments.entities.Employee;
 import co.com.sanipet.modules.appointments.entities.Roles;
 import co.com.sanipet.modules.appointments.entities.WorkingDays;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
