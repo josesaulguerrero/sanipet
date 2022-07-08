@@ -74,9 +74,7 @@ public class AppointmentsMain {
         AppointmentTypes type = getAppointmentType(selectedOption);
         WorkingDays day = WorkingDays.valueOf(ConsoleMenu.renderAndRead("Which day of the week do you prefer the " +
                 "appointment in?").toUpperCase(Locale.ROOT));
-        System.out.println(employeeDAO.findAvailable(
-                type == AppointmentTypes.MEDICAL || type == AppointmentTypes.SURGERY ? Roles.DOCTOR : Roles.STYLIST, day
-        ));
+        System.out.println(employeeDAO.findAvailable(type.findAssociatedRole(type), day));
         return null;
     }
 
