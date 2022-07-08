@@ -33,4 +33,15 @@ public class Appointment {
     public Employee getEmployeeInCharge() {
         return employeeInCharge;
     }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "status=" + status +
+                ", type=" + type +
+                ", date=" + date +
+                ", patient=" + patient +
+                ", employeeInCharge=" + employeeInCharge +
+                '}';
+    }
 }

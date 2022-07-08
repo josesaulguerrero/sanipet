@@ -38,6 +38,7 @@ public class AppointmentsMain {
         Owner owner = getOwnerInformation();
         Patient patient = getPatientInformation(owner);
         Appointment appointment =  getAppointmentInformation(patient);
+        System.out.println(appointment);
     }
 
     private static Owner getOwnerInformation() {
@@ -67,15 +68,15 @@ public class AppointmentsMain {
 
     private static Appointment getAppointmentInformation(Patient patient){
         System.out.println("What kind of appointment do you need?");
-        int selectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
+        int appointmentOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
                 (option) -> NumberUtils.isParsable(option) && Range.between(1, 3).contains(Integer.parseInt(option)),
                 "1. Medical", "2. Surgery", "3. Aesthetic"
         ));
-        AppointmentTypes type = getAppointmentType(selectedOption);
+        AppointmentTypes type = getAppointmentType(appointmentOption);
         WorkingDays day = WorkingDays.valueOf(ConsoleMenu.renderAndRead("Which day of the week do you prefer the " +
-                "appointment in?").toUpperCase(Locale.ROOT));
-        System.out.println(employeeDAO.findAvailable(type.findAssociatedRole(), day));
-        return null;
+                "appointment in?").toUpperCase(Locale.ROOT).trim());
+        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), day).get(0);
+        return new Appointment(type, day, patient, employee);
     }
 
     private static AppointmentTypes getAppointmentType(int option) {

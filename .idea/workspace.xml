@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b180a09f-b8cf-406b-92c6-1c4acbb5088d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/AppointmentsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/AppointmentsMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/WorkingDays.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/WorkingDays.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +92,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
