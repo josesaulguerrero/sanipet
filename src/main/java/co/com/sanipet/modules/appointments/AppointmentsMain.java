@@ -55,7 +55,7 @@ public class AppointmentsMain {
 
     private static Patient getPatientInformation(Owner owner){
         Animals patientSpecies = Animals.valueOf(ConsoleMenu.renderAndRead("What is the species of the patient? " +
-                "(DOG/CAT)"));
+                "(DOG/CAT)").toUpperCase(Locale.ROOT));
         String patientName = ConsoleMenu.renderAndRead("What is the name of the patient?");
         String patientBreed = ConsoleMenu.renderAndRead("What is the breed of the patient?");
         Boolean patientVaccinated =
@@ -68,13 +68,13 @@ public class AppointmentsMain {
     private static Appointment getAppointmentInformation(Patient patient){
         System.out.println("What kind of appointment do you need?");
         int selectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
-                        (option) -> NumberUtils.isParsable(option) && Range.between(1, 3).contains(Integer.parseInt(option)),
-                        "1. Medical", "2. Surgical", "3. Aesthetical"
+                (option) -> NumberUtils.isParsable(option) && Range.between(1, 3).contains(Integer.parseInt(option)),
+                "1. Medical", "2. Surgery", "3. Aesthetic"
         ));
         AppointmentTypes type = getAppointmentType(selectedOption);
         WorkingDays day = WorkingDays.valueOf(ConsoleMenu.renderAndRead("Which day of the week do you prefer the " +
                 "appointment in?").toUpperCase(Locale.ROOT));
-        System.out.println(employeeDAO.findAvailable(type.findAssociatedRole(type), day));
+        System.out.println(employeeDAO.findAvailable(type.findAssociatedRole(), day));
         return null;
     }
 
