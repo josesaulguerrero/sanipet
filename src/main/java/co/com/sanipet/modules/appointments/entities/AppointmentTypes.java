@@ -5,7 +5,7 @@ public enum AppointmentTypes {
     SURGERY,
     AESTHETIC;
 
-    public Roles findAssociatedRole(AppointmentTypes type) {
-        return type == AppointmentTypes.AESTHETIC ? Roles.STYLIST : Roles.DOCTOR;
+    public Roles findAssociatedRole() {
+        return this.name().equals("AESTHETIC") ? Roles.STYLIST : Roles.DOCTOR;
     }
 }
