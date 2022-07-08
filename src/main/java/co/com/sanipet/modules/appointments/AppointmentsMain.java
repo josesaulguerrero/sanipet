@@ -2,6 +2,7 @@ package co.com.sanipet.modules.appointments;
 
 import co.com.sanipet.modules.appointments.dao.AppointmentDAO;
 import co.com.sanipet.modules.appointments.dao.EmployeeDAO;
+import co.com.sanipet.modules.appointments.dao.OwnerDAO;
 import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
 import com.google.gson.Gson;
@@ -20,10 +21,11 @@ public class AppointmentsMain {
 
     private static final EmployeeDAO employeeDAO = new EmployeeDAO();
     private static final AppointmentDAO appointmentDAO = new AppointmentDAO();
+    private static final OwnerDAO ownerDAO = new OwnerDAO();
     public static void main() {
         Optional<Integer> selectedOption = Optional.of(
                 Integer.valueOf(ConsoleMenu.renderAndVerify(
-                        (option) -> NumberUtils.isParsable(option) && Range.between(1, 2).contains(Integer.parseInt(option)),
+                        (option) -> NumberUtils.isParsable(option) && Range.between(1, 4).contains(Integer.parseInt(option)),
                         "1. Register new appointment", "2. Update appointment", "3. Cancel appointment", "4. Display History"
                 ))
         );
@@ -48,10 +50,23 @@ public class AppointmentsMain {
     }
 
     private static void registerNewAppointment(){
-        // 1. are you registered yet? login
-        // OwnerDao.find(String dni);
-        // 2. sign up
-        // OwnerDao.save(OwnerDao.create());
+        int selectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
+                (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option)),
+                "1. are you registered yet? Log in.", "2. You don't have an account? Sign up"
+        ));
+        Owner owner = getOwnerBasedOnUserInput(selectedOption);
+    }
+
+    private static Owner getOwnerBasedOnUserInput(int selectedOption) {
+        Optional<Owner> owner;
+        if(selectedOption == 1) {
+            String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
+            owner = Optional.of(ownerDAO.logIn(DNI));
+        } else {
+            owner = Optional.of(ownerDAO.create());
+            ownerDAO.save(owner.get());
+        }
+        return owner.get();
     }
 
     /*private static void registerNewAppointment() {
