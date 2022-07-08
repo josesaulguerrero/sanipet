@@ -11,8 +11,9 @@ public class Application {
         while (selectedOption.isEmpty() || selectedOption.get() != 0) {
             try {
                 System.out.println("Welcome to Sanipet! What do you want to do today?");
-                String[] options = new String[] {"1. Appointments", "2. Medicines stock", "0. exit"};
-                selectedOption = Optional.of(Integer.valueOf(ConsoleMenu.renderAndRead(options)));
+                selectedOption = Optional.of(Integer.valueOf(ConsoleMenu.renderAndRead(
+                        "1. Appointments", "2. Medicines stock", "0. exit"
+                )));
                 callModule(selectedOption.get());
             } catch (NumberFormatException e) {
                 System.out.println("The given option doesn't exist. Please enter one of the listed above.");
