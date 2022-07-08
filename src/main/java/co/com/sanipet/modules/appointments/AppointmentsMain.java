@@ -1,20 +1,11 @@
 package co.com.sanipet.modules.appointments;
 
-import co.com.sanipet.modules.appointments.dao.AppointmentDAO;
-import co.com.sanipet.modules.appointments.dao.EmployeeDAO;
-import co.com.sanipet.modules.appointments.dao.OwnerDAO;
+import co.com.sanipet.modules.appointments.dao.*;
 import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class AppointmentsMain {
@@ -23,29 +14,24 @@ public class AppointmentsMain {
     private static final AppointmentDAO appointmentDAO = new AppointmentDAO();
     private static final OwnerDAO ownerDAO = new OwnerDAO();
     public static void main() {
-        Optional<Integer> selectedOption = Optional.of(
-                Integer.valueOf(ConsoleMenu.renderAndVerify(
+        int selectedOption = Integer.parseInt(
+                ConsoleMenu.renderAndVerify(
                         (option) -> NumberUtils.isParsable(option) && Range.between(1, 4).contains(Integer.parseInt(option)),
                         "1. Register new appointment", "2. Update appointment", "3. Cancel appointment", "4. Display History"
-                ))
+                )
         );
-        pickOption(selectedOption.get());
+        pickOption(selectedOption);
     }
 
-    private static void pickOption(int option) {
-        switch (option) {
-            case 1:
-                // registerNewAppointment();
-                break;
-            case 2:
-                // updateAppointment();
-                break;
-            case 3:
-                // cancelAppointment();
-                break;
-            case 4:
-                // displayHistory();
-                break;
+    private static void pickOption(Integer option) {
+        if (option.equals(1)) {
+            // registerNewAppointment();
+        } else if(option.equals(2)) {
+            // updateAppointment();
+        } else if (option.equals(3)) {
+            // cancelAppointment();
+        } else {
+            // displayHistory();
         }
     }
 
@@ -57,9 +43,9 @@ public class AppointmentsMain {
         Owner owner = getOwnerBasedOnUserInput(selectedOption);
     }
 
-    private static Owner getOwnerBasedOnUserInput(int selectedOption) {
+    private static Owner getOwnerBasedOnUserInput(Integer selectedOption) {
         Optional<Owner> owner;
-        if(selectedOption == 1) {
+        if(selectedOption.equals(1)) {
             String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
             owner = Optional.of(ownerDAO.logIn(DNI));
         } else {
