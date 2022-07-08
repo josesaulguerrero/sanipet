@@ -43,14 +43,14 @@ public class PatientDAO {
      * */
     public Patient create(Owner owner) {
         Animals patientSpecies = Animals.valueOf(ConsoleMenu.renderAndVerify(
-            (option) -> EnumUtils.isValidEnum(Animals.class, option.toLowerCase(Locale.ROOT)),
+            (option) -> EnumUtils.isValidEnum(Animals.class, option.toUpperCase(Locale.ROOT)),
             "What is the species of the patient? (DOG/CAT)"
         ).toUpperCase(Locale.ROOT));
 
         String patientName = ConsoleMenu.renderAndRead("What is the name of the patient?");
         String patientBreed = ConsoleMenu.renderAndRead("What is the breed of the patient?");
         Boolean patientVaccinated = ConsoleMenu.renderAndVerify(
-                (option) -> List.of("YES", "NO").contains(option.toLowerCase(Locale.ROOT)),
+                (option) -> List.of("YES", "NO").contains(option.toUpperCase(Locale.ROOT)),
                 "Is the patient vaccinated? (YES/NO)"
         ).toUpperCase(Locale.ROOT).equals("YES");
         LocalDate patientLastDeworming = LocalDate.parse(ConsoleMenu.renderAndRead("When the patient was dewormed? " +

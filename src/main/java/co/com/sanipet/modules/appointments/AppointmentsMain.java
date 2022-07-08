@@ -13,6 +13,7 @@ public class AppointmentsMain {
     private static final EmployeeDAO employeeDAO = new EmployeeDAO();
     private static final AppointmentDAO appointmentDAO = new AppointmentDAO();
     private static final OwnerDAO ownerDAO = new OwnerDAO();
+    private static final PatientDAO patientDAO = new PatientDAO();
     public static void main() {
         int selectedOption = Integer.parseInt(
                 ConsoleMenu.renderAndVerify(
@@ -25,7 +26,7 @@ public class AppointmentsMain {
 
     private static void pickOption(Integer option) {
         if (option.equals(1)) {
-            // registerNewAppointment();
+            registerNewAppointment();
         } else if(option.equals(2)) {
             // updateAppointment();
         } else if (option.equals(3)) {
@@ -36,11 +37,16 @@ public class AppointmentsMain {
     }
 
     private static void registerNewAppointment(){
-        int selectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
+        int ownerSelectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
                 (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option)),
                 "1. are you registered yet? Log in.", "2. You don't have an account? Sign up"
         ));
-        Owner owner = getOwnerBasedOnUserInput(selectedOption);
+        Owner owner = getOwnerBasedOnUserInput(ownerSelectedOption);
+        int petSelectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
+                (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option)),
+                "1. is your pet registered? Log in.", "2. don't they have an account yet? Sign up"
+        ));
+        Patient patient = getPatientBasedOnUserInput(petSelectedOption, owner);
     }
 
     private static Owner getOwnerBasedOnUserInput(Integer selectedOption) {
@@ -54,6 +60,18 @@ public class AppointmentsMain {
         }
         return owner.get();
     }
+
+    private static Patient getPatientBasedOnUserInput(Integer selectedOption, Owner owner) {
+            Optional<Patient> patient;
+            if(selectedOption.equals(1)) {
+                String ClinicalHistoryId = ConsoleMenu.renderAndRead("What is their clinical history Id?");
+                patient = Optional.of(patientDAO.logIn(ClinicalHistoryId, owner));
+            } else {
+                patient = Optional.of(patientDAO.create(owner));
+                patientDAO.save(patient.get());
+            }
+            return patient.get();
+        }
 
     /*private static void registerNewAppointment() {
         Owner owner = getOwnerInformation();
