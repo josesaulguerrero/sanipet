@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b180a09f-b8cf-406b-92c6-1c4acbb5088d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/stock/entities/MedicinePresentation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/stock/entities/MedicineUsage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/stock/entities/Quantity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/stock/entities/Stock.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/stock/entities/MeasurementUnits.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/stock/entities/MeasurementUnits.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Appointment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

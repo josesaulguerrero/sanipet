@@ -1,17 +1,26 @@
 package co.com.sanipet.modules.appointments.entities;
 
+/*
+* Class that represents an appointment
+*/
 public class Appointment {
-    Statuses status = Statuses.NOT_STARTED;
+    // Attributes
+    Statuses status;
     AppointmentTypes type;
     WorkingDays date;
     Patient patient;
     Employee employeeInCharge;
+    Double appointmentCost;
 
+    // Constructor
     public Appointment(AppointmentTypes type, WorkingDays date, Patient patient, Employee employee) {
+        this.status = Statuses.NOT_STARTED;
         this.type = type;
         this.date = date;
         this.patient = patient;
         this.employeeInCharge = employee;
+        this.appointmentCost = this.type == AppointmentTypes.SURGERY ? 100.0 : 50.0; // surgery is 100 and aesthetic
+        // or medical is 50
     }
 
     public Statuses getStatus() {
