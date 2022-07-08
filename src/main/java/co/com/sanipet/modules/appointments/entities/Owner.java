@@ -15,6 +15,10 @@ public class Owner extends Person {
         return this.age;
     }
 
+    public String getDNI() {
+        return this.DNI;
+    }
+
     @Override
     public String toString() {
         return "Owner{" + "age=" + age + ", DNI='" + DNI + '\'' + ", name='" + name + '\'' + ", surname='" + surname + '\'' + ", cellphone='" + cellphone + '\'' + '}';

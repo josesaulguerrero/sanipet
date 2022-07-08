@@ -24,7 +24,7 @@ public class AppointmentsMain {
         Optional<Integer> selectedOption = Optional.of(
                 Integer.valueOf(ConsoleMenu.renderAndVerify(
                         (option) -> NumberUtils.isParsable(option) && Range.between(1, 2).contains(Integer.parseInt(option)),
-                        "1. Register new appointment", "2. Display history"
+                        "1. Register new appointment", "2. Update appointment", "3. Cancel appointment", "4. Display History"
                 ))
         );
         pickOption(selectedOption.get());
@@ -33,15 +33,28 @@ public class AppointmentsMain {
     private static void pickOption(int option) {
         switch (option) {
             case 1:
-                registerNewAppointment();
+                // registerNewAppointment();
                 break;
             case 2:
-                displayHistory();
+                // updateAppointment();
+                break;
+            case 3:
+                // cancelAppointment();
+                break;
+            case 4:
+                // displayHistory();
                 break;
         }
     }
 
-    private static void registerNewAppointment() {
+    private static void registerNewAppointment(){
+        // 1. are you registered yet? login
+        // OwnerDao.find(String dni);
+        // 2. sign up
+        // OwnerDao.save(OwnerDao.create());
+    }
+
+    /*private static void registerNewAppointment() {
         Owner owner = getOwnerInformation();
         Patient patient = getPatientInformation(owner);
         Appointment appointment =  getAppointmentInformation(patient);
@@ -108,5 +121,5 @@ public class AppointmentsMain {
             System.out.println(gson.toJson(prettyJSON));
             System.out.println("----------------------------------");
         }
-    }
+    }*/
 }
