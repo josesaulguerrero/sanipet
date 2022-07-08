@@ -1,18 +1,25 @@
 package co.com.sanipet.modules.appointments;
 
+import co.com.sanipet.modules.appointments.dao.AppointmentDAO;
 import co.com.sanipet.modules.appointments.dao.EmployeeDAO;
 import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 public class AppointmentsMain {
 
     private static final EmployeeDAO employeeDAO = new EmployeeDAO();
+    private static final AppointmentDAO appointmentDAO = new AppointmentDAO();
     public static void main() {
         Optional<Integer> selectedOption = Optional.of(
                 Integer.valueOf(ConsoleMenu.renderAndVerify(
@@ -38,7 +45,7 @@ public class AppointmentsMain {
         Owner owner = getOwnerInformation();
         Patient patient = getPatientInformation(owner);
         Appointment appointment =  getAppointmentInformation(patient);
-        System.out.println(appointment);
+        appointmentDAO.create(appointment);
     }
 
     private static Owner getOwnerInformation() {
@@ -93,6 +100,13 @@ public class AppointmentsMain {
 
 
     private static void displayHistory() {
-
+        List<Appointment> appointments = appointmentDAO.findAll();
+        for (Appointment appointment : appointments) {
+            System.out.println("----------------------------------");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonElement prettyJSON = JsonParser.parseString(gson.toJson(appointment));
+            System.out.println(gson.toJson(prettyJSON));
+            System.out.println("----------------------------------");
+        }
     }
 }
