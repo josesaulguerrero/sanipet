@@ -10,6 +10,10 @@ public class Schedule {
         this.activeDays = activeDays;
     }
 
+    public Map<WorkingDays, String> getActiveDays() {
+        return activeDays;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
