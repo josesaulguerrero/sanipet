@@ -6,8 +6,6 @@ import co.com.sanipet.utils.ConsoleMenu;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.util.Optional;
-
 public class AppointmentsMain {
 
     private static final EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -50,62 +48,31 @@ public class AppointmentsMain {
     }
 
     private static Owner getOwnerBasedOnUserInput(Integer selectedOption) {
-        Optional<Owner> owner;
+        Owner owner;
         if(selectedOption.equals(1)) {
             String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
-            owner = Optional.of(ownerDAO.logIn(DNI));
+            owner = (ownerDAO.logIn(DNI));
         } else {
-            owner = Optional.of(ownerDAO.create());
-            ownerDAO.save(owner.get());
+            owner = ownerDAO.create();
+            ownerDAO.save(owner);
         }
-        return owner.get();
+        return owner;
     }
 
     private static Patient getPatientBasedOnUserInput(Integer selectedOption, Owner owner) {
-            Optional<Patient> patient;
-            if(selectedOption.equals(1)) {
-                String ClinicalHistoryId = ConsoleMenu.renderAndRead("What is their clinical history Id?");
-                patient = Optional.of(patientDAO.logIn(ClinicalHistoryId, owner));
-            } else {
-                patient = Optional.of(patientDAO.create(owner));
-                patientDAO.save(patient.get());
-            }
-            return patient.get();
+        Patient patient;
+        if(selectedOption.equals(1)) {
+            String ClinicalHistoryId = ConsoleMenu.renderAndRead("What is their clinical history Id?");
+            patient = patientDAO.logIn(ClinicalHistoryId, owner);
+        } else {
+            patient = patientDAO.create(owner);
+            patientDAO.save(patient);
         }
-
-    /*private static void registerNewAppointment() {
-        Owner owner = getOwnerInformation();
-        Patient patient = getPatientInformation(owner);
-        Appointment appointment =  getAppointmentInformation(patient);
-        appointmentDAO.create(appointment);
+        return patient;
     }
 
-    private static Owner getOwnerInformation() {
-        System.out.println("Before we start, we need some information from the owner!");
-        String DNI  = ConsoleMenu.renderAndRead("Enter your DNI number:");
-        String name = ConsoleMenu.renderAndRead("What is your name?");
-        String surname = ConsoleMenu.renderAndRead("What is your surname?");
-        String cellphone = ConsoleMenu.renderAndRead("What is your cellphone contact number?");
-        Optional<Integer> age = Optional.of(Integer.parseInt(ConsoleMenu.renderAndVerify(
-                (answer) -> NumberUtils.isParsable(answer) && Integer.parseInt(answer) >= 18,
-                "How old are you? You must be over 18"
-        )));
-        return new Owner(DNI, name, surname, cellphone, age.get());
-    }
 
-    private static Patient getPatientInformation(Owner owner){
-        Animals patientSpecies = Animals.valueOf(ConsoleMenu.renderAndRead("What is the species of the patient? " +
-                "(DOG/CAT)").toUpperCase(Locale.ROOT));
-        String patientName = ConsoleMenu.renderAndRead("What is the name of the patient?");
-        String patientBreed = ConsoleMenu.renderAndRead("What is the breed of the patient?");
-        Boolean patientVaccinated =
-                ConsoleMenu.renderAndRead("Is the patient vaccinated? (YES/NO)").toUpperCase(Locale.ROOT).equals("YES");
-        LocalDate patientLastDeworming = LocalDate.parse(ConsoleMenu.renderAndRead("When the patient was dewormed? " +
-                "(YYYY-MM-DD)"));
-        return new Patient(patientSpecies, patientName, patientBreed, patientVaccinated, patientLastDeworming, owner);
-    }
-
-    private static Appointment getAppointmentInformation(Patient patient){
+    /*private static Appointment getAppointmentInformation(Patient patient){
         System.out.println("What kind of appointment do you need?");
         int appointmentOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
                 (option) -> NumberUtils.isParsable(option) && Range.between(1, 3).contains(Integer.parseInt(option)),
@@ -129,7 +96,6 @@ public class AppointmentsMain {
                 return AppointmentTypes.AESTHETIC;
         }
     }
-
 
     private static void displayHistory() {
         List<Appointment> appointments = appointmentDAO.findAll();
