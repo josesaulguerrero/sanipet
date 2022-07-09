@@ -1,10 +1,13 @@
 package co.com.sanipet.modules.appointments.entities;
 
+import co.com.sanipet.utils.HashGenerator;
+
 /*
 * Class that represents an appointment
 */
 public class Appointment {
     // Attributes
+    String id;
     Statuses status;
     AppointmentTypes type;
     WorkingDays date;
@@ -14,6 +17,7 @@ public class Appointment {
 
     // Constructor
     public Appointment(AppointmentTypes type, WorkingDays date, Patient patient, Employee employee) {
+        this.id = HashGenerator.generateRandomAlphanumericString(10);
         this.status = Statuses.NOT_STARTED;
         this.type = type;
         this.date = date;

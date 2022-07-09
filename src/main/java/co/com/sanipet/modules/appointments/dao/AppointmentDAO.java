@@ -36,6 +36,10 @@ public class AppointmentDAO {
         return new Appointment(type, day, patient, employee);
     }
 
+    public void update(, Statuses status) {
+        
+    }
+
     public void save(Appointment appointment) {
         appointments.add(appointment);
     }

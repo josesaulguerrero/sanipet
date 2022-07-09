@@ -3,8 +3,14 @@ package co.com.sanipet.modules.appointments;
 import co.com.sanipet.modules.appointments.dao.*;
 import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
+
+import java.util.List;
 
 public class AppointmentsMain {
 
@@ -31,7 +37,7 @@ public class AppointmentsMain {
         } else if (option.equals(3)) {
             // cancelAppointment();
         } else {
-            // displayHistory();
+            displayHistory();
         }
     }
 
@@ -85,7 +91,7 @@ public class AppointmentsMain {
             case 3:
                 return AppointmentTypes.AESTHETIC;
         }
-    }
+    }*/
 
     private static void displayHistory() {
         List<Appointment> appointments = appointmentDAO.findAll();
@@ -96,5 +102,5 @@ public class AppointmentsMain {
             System.out.println(gson.toJson(prettyJSON));
             System.out.println("----------------------------------");
         }
-    }*/
+    }
 }
