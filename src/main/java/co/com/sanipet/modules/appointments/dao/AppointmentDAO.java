@@ -36,8 +36,16 @@ public class AppointmentDAO {
         return new Appointment(type, day, patient, employee);
     }
 
-    public void update(, Statuses status) {
-        
+    public boolean appointmentExists(String Id) {
+        return appointments.stream().anyMatch(appointment -> appointment.getId().equals(Id));
+    }
+
+    public void update(String Id, Statuses status) {
+        appointments.forEach(appointment -> {
+            if (appointment.getId().equals(Id)) {
+                appointment.setStatus(status);
+            }
+        });
     }
 
     public void save(Appointment appointment) {

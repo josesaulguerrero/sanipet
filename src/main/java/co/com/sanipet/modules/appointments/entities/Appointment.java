@@ -18,13 +18,17 @@ public class Appointment {
     // Constructor
     public Appointment(AppointmentTypes type, WorkingDays date, Patient patient, Employee employee) {
         this.id = HashGenerator.generateRandomAlphanumericString(10);
-        this.status = Statuses.NOT_STARTED;
+        this.status = Statuses.PENDING;
         this.type = type;
         this.date = date;
         this.patient = patient;
         this.employeeInCharge = employee;
         this.appointmentCost = this.type == AppointmentTypes.SURGERY ? 100.0 : 50.0; // surgery is 100 and aesthetic
         // or medical is 50
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Statuses getStatus() {
@@ -45,6 +49,10 @@ public class Appointment {
 
     public Employee getEmployeeInCharge() {
         return employeeInCharge;
+    }
+
+    public void setStatus(Statuses status) {
+        this.status = status;
     }
 
     @Override

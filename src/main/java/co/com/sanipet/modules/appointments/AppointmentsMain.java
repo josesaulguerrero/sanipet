@@ -7,10 +7,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AppointmentsMain {
 
@@ -22,8 +24,8 @@ public class AppointmentsMain {
     public static void main() {
         int selectedOption = Integer.parseInt(
                 ConsoleMenu.renderAndVerify(
-                        (option) -> NumberUtils.isParsable(option) && Range.between(1, 4).contains(Integer.parseInt(option)),
-                        "1. Register new appointment", "2. Update appointment", "3. Cancel appointment", "4. Display History"
+                        (option) -> NumberUtils.isParsable(option) && Range.between(1, 3).contains(Integer.parseInt(option)),
+                        "1. Register new appointment", "2. Update appointment", "3. Display History"
                 )
         );
         pickOption(selectedOption);
@@ -33,9 +35,7 @@ public class AppointmentsMain {
         if (option.equals(1)) {
             registerNewAppointment();
         } else if(option.equals(2)) {
-            // updateAppointment();
-        } else if (option.equals(3)) {
-            // cancelAppointment();
+            updateAppointment();
         } else {
             displayHistory();
         }
@@ -52,8 +52,9 @@ public class AppointmentsMain {
                 "1. is your pet registered? Log in.", "2. don't they have an account yet? Sign up"
         ));
         Patient patient = getPatientBasedOnUserInput(petSelectedOption, owner);
-        appointmentDAO.save(appointmentDAO.create(patient));
-        System.out.println("Your appointment has been successfully created.");
+        Appointment appointment = appointmentDAO.create(patient);
+        appointmentDAO.save(appointment);
+        System.out.println("Your appointment has been successfully created with the id: " + appointment.getId());
         System.out.println("--------------------------------------------------");
     }
 
@@ -81,18 +82,22 @@ public class AppointmentsMain {
         return patient;
     }
 
-    /*private static AppointmentTypes getAppointmentType(int option) {
-        switch (option){
-            case 1:
-            default:
-                return AppointmentTypes.MEDICAL;
-            case 2:
-                return AppointmentTypes.SURGERY;
-            case 3:
-                return AppointmentTypes.AESTHETIC;
+    private static void updateAppointment() {
+        String appointmentId = ConsoleMenu.renderAndRead("Please enter the Id of the appointment: ");
+        if (appointmentDAO.appointmentExists(appointmentId)) {
+            String stringifiedStatus = ConsoleMenu.renderAndVerify(
+                    (option) -> EnumUtils.isValidEnum(Statuses.class, option.trim().toUpperCase(Locale.ROOT)),
+                    "Please enter the new status for the appointment: ", "Pending", "Absent", "Finished", "Cancelled"
+            );
+            Statuses status = Statuses.valueOf(stringifiedStatus.trim().toUpperCase(Locale.ROOT));
+            appointmentDAO.update(appointmentId, status);
+            System.out.println("The appointment has been updated.");
+            System.out.println("----------------------------------------------------");
+        } else {
+            System.out.println("No appointment with the given id exists.");
+            System.out.println("----------------------------------------------------");
         }
-    }*/
-
+    }
     private static void displayHistory() {
         List<Appointment> appointments = appointmentDAO.findAll();
         for (Appointment appointment : appointments) {

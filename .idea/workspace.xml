@@ -9,7 +9,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/AppointmentsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/AppointmentsMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/dao/AppointmentDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/dao/AppointmentDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Appointment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Statuses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/entities/Statuses.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
