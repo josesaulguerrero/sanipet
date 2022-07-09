@@ -13,12 +13,11 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class AppointmentService {
-    private final EmployeeDAO employeeDAO = new EmployeeDAO();
+    private final EmployeeService employeeService = new EmployeeService();
+    private final PatientService patientService = new PatientService();
+    private final OwnerService ownerService = new OwnerService();
 
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
-    private final OwnerDAO ownerDAO = new OwnerDAO();
-    private final PatientDAO patientDAO = new PatientDAO();
-    private final PatientService patientService = new PatientService();
 
     public void registerNewAppointment() {
         Predicate<String> validator =
@@ -42,11 +41,15 @@ public class AppointmentService {
     private Owner getOwnerBasedOnUserInput(Integer selectedOption) {
         Owner owner;
         if (selectedOption.equals(1)) {
-            String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
-            owner = (ownerDAO.logIn(DNI));
+            try {
+                String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
+                owner = ownerService.logIn(DNI);
+            } catch (Exception e) {
+                System.out.printf("%s You will be redirected to Sign Up \n", e.getMessage());
+                owner = ownerService.registerNewOwner();
+            }
         } else {
-            owner = ownerDAO.create();
-            ownerDAO.save(owner);
+            owner = ownerService.registerNewOwner();
         }
         return owner;
     }
@@ -78,7 +81,7 @@ public class AppointmentService {
                 "What date do you need the appointment for? (YYYY-MM-DD)"
         );
         LocalDate date = LocalDate.parse(stringifiedDate);
-        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), date).get(0);
+        Employee employee = employeeService.findAvailable(type.findAssociatedRole(), date).get(0);
 
         return new Appointment(type, date, patient, employee);
     }

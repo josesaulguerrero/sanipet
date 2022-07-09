@@ -49,19 +49,4 @@ public class EmployeeDAO {
     public List<Employee> findAll() {
         return employees;
     }
-
-    public List<Employee> findAvailable(Roles role, LocalDate date) {
-        WorkingDays day = WorkingDays.fromInteger(date.getDayOfWeek().getValue());
-        return employees
-                .stream()
-                .filter(employee -> employee.getRole() == role)
-                .filter(employee -> employee.getSchedule().getActiveDays().containsKey(day))
-                .collect(Collectors.toList());
-    }
-
-    public Employee findByDNI (String DNI) {
-        // TODO find by DNI
-        return employees.get(0);
-
-    }
 }

@@ -41,6 +41,6 @@ public class PatientService {
         if (!exists(clinicalHistoryId)) {
             throw new IllegalArgumentException("There's no patient registered with the given clinical history id.");
         }
-        return patientDAO.findByClinicalHistoryId(clinicalHistoryId).get();
+        return patientDAO.logIn(clinicalHistoryId).get();
     }
 }
