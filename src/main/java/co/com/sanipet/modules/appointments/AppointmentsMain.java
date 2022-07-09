@@ -37,12 +37,12 @@ public class AppointmentsMain {
 
     private static void registerNewAppointment(){
         int ownerSelectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
-                (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option)),
+                (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option.trim())),
                 "1. are you registered yet? Log in.", "2. You don't have an account? Sign up"
         ));
         Owner owner = getOwnerBasedOnUserInput(ownerSelectedOption);
         int petSelectedOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
-                (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option)),
+                (option) -> NumberUtils.isParsable(option) && Range.between(1,2).contains(Integer.parseInt(option.trim())),
                 "1. is your pet registered? Log in.", "2. don't they have an account yet? Sign up"
         ));
         Patient patient = getPatientBasedOnUserInput(petSelectedOption, owner);

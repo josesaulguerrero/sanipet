@@ -7,6 +7,7 @@
     <list default="true" id="b180a09f-b8cf-406b-92c6-1c4acbb5088d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/AppointmentsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/AppointmentsMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/dao/PatientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/com/sanipet/modules/appointments/dao/PatientDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
