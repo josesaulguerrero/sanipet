@@ -18,6 +18,7 @@ public class AppointmentService {
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
     private final OwnerDAO ownerDAO = new OwnerDAO();
     private final PatientDAO patientDAO = new PatientDAO();
+    private final PatientService patientService = new PatientService();
 
     public void registerNewAppointment() {
         Predicate<String> validator =
@@ -53,11 +54,15 @@ public class AppointmentService {
     private Patient getPatientBasedOnUserInput(Integer selectedOption, Owner owner) {
         Patient patient;
         if (selectedOption.equals(1)) {
-            String ClinicalHistoryId = ConsoleMenu.renderAndRead("What is their clinical history Id?");
-            patient = patientDAO.logIn(ClinicalHistoryId, owner);
+            try {
+                String clinicalHistoryId = ConsoleMenu.renderAndRead("What is your pet clinical history Id?").trim();
+                patient = patientService.logIn(clinicalHistoryId);
+            } catch (Exception e) {
+                System.out.printf("%s You will be redirected to Sign Up \n", e.getMessage());
+                patient = patientService.registerNewPatient(owner);
+            }
         } else {
-            patient = patientDAO.create(owner);
-            patientDAO.save(patient);
+            patient = patientService.registerNewPatient(owner);
         }
         return patient;
     }

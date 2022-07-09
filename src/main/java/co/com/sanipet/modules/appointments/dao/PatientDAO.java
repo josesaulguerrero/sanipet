@@ -4,6 +4,7 @@ import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
 import org.apache.commons.lang3.EnumUtils;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -17,13 +18,12 @@ public class PatientDAO {
     * Method to log in the user
     * @param clinicalHistoryId
     * */
-    public Patient logIn(String clinicalHistoryId, Owner owner) {
-        Optional<Patient> patient = findByClinicalHistoryId(clinicalHistoryId);
-        if(patient.isEmpty()) {
-            System.out.println("Your pet doesn't have an account yet. You will be redirected to Sign Up.");
-            patient = Optional.of(create(owner));
-        }
-        return patient.get();
+    public Optional<Patient> logIn(String clinicalHistoryId) {
+        return findByClinicalHistoryId(clinicalHistoryId);
+    }
+
+    public Boolean exists(String clinicalHistoryId) {
+        return this.patients.containsKey(clinicalHistoryId);
     }
 
     /*
@@ -31,31 +31,8 @@ public class PatientDAO {
      * @param clinicalHistoryId
      * */
     public Optional<Patient> findByClinicalHistoryId(String clinicalHistoryId) {
-        Optional<Patient> patient = Optional.empty();
-        if(patients.containsKey(clinicalHistoryId.trim())) {
-            patient = Optional.of(patients.get(clinicalHistoryId));
-        }
-        return patient;
-    }
-
-    /*
-     * Method to create a patient
-     * */
-    public Patient create(Owner owner) {
-        Animals patientSpecies = Animals.valueOf(ConsoleMenu.renderAndVerify(
-            (option) -> EnumUtils.isValidEnum(Animals.class, option.toUpperCase(Locale.ROOT)),
-            "What is the species of the patient? (DOG/CAT)"
-        ).toUpperCase(Locale.ROOT));
-
-        String patientName = ConsoleMenu.renderAndRead("What is the name of the patient?");
-        String patientBreed = ConsoleMenu.renderAndRead("What is the breed of the patient?");
-        Boolean patientVaccinated = ConsoleMenu.renderAndVerify(
-                (option) -> List.of("YES", "NO").contains(option.toUpperCase(Locale.ROOT)),
-                "Is the patient vaccinated? (YES/NO)"
-        ).toUpperCase(Locale.ROOT).equals("YES");
-        LocalDate patientLastDeworming = ConsoleMenu.renderAndVerifyDate("When was the patient last dewormed? " +
-                "(YYYY-MM-DD)");
-        return new Patient(patientSpecies, patientName, patientBreed, patientVaccinated, patientLastDeworming, owner);
+        return Optional
+                .ofNullable(patients.get(clinicalHistoryId));
     }
 
     /*

@@ -18,7 +18,6 @@ public class AppointmentDAO {
 
     // Attributes
     private static final List<Appointment> appointments = new ArrayList<>();
-    private final EmployeeDAO employeeDAO = new EmployeeDAO();
 
     public List<Appointment> findAll() {
         return appointments;
