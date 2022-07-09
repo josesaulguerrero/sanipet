@@ -1,22 +1,22 @@
 package co.com.sanipet.modules.stock.entities;
 
+import co.com.sanipet.utils.HashGenerator;
+
 /*
 * Class that represents the multiple types of medicine.
 */
 public class Medicine {
     // Attributes
-    protected String name;
-    protected MedicinePresentation presentation;
-    protected MedicineUsage usage;
-    protected Quantity quantity;
-    protected Stock stock;
+    private final String name;
+    private final String id;
+    private final MedicinePresentation presentation;
+    private Stock stock;
 
     //Constructor
-    public Medicine(String name, MedicinePresentation presentation, MedicineUsage usage, Quantity quantity, Stock stock) {
+    public Medicine(String name, MedicinePresentation presentation, Stock stock) {
         this.name = name;
+        this.id = HashGenerator.generateRandomAlphanumericString(20);
         this.presentation = presentation;
-        this.usage = usage;
-        this.quantity = quantity;
         this.stock = stock;
     }
 
@@ -27,25 +27,15 @@ public class Medicine {
         return name;
     }
 
+    public String getId() {
+        return id;
+    }
+
     /*
     *  Gets the presentation of the medicine
     */
     public MedicinePresentation getPresentation() {
         return presentation;
-    }
-
-    /*
-    *  Gets the type of medicine usage of the medicine
-    */
-    public MedicineUsage getUsage() {
-        return usage;
-    }
-
-    /*
-    *  Gets the quantity of the medicine
-    */
-    public Quantity getQuantity() {
-        return quantity;
     }
 
     /*
@@ -58,13 +48,16 @@ public class Medicine {
     /*
     * @Override the method toString()
     */
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
     @Override
     public String toString() {
         return "Medicine{" +
                 "name='" + name + '\'' +
                 ", presentation=" + presentation +
-                ", usage=" + usage +
-                ", quantity=" + quantity +
                 ", stock=" + stock +
                 '}';
     }

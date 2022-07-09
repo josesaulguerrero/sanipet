@@ -13,12 +13,11 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class AppointmentService {
-    private final EmployeeDAO employeeDAO = new EmployeeDAO();
-
-    private final AppointmentDAO appointmentDAO = new AppointmentDAO();
-    private final OwnerDAO ownerDAO = new OwnerDAO();
-    private final PatientDAO patientDAO = new PatientDAO();
     private final PatientService patientService = new PatientService();
+    private final AppointmentDAO appointmentDAO = new AppointmentDAO();
+    private final EmployeeDAO employeeDAO = new EmployeeDAO(); // find available
+
+    private final OwnerDAO ownerDAO = new OwnerDAO(); // create the owner
 
     public void registerNewAppointment() {
         Predicate<String> validator =
@@ -92,11 +91,11 @@ public class AppointmentService {
                     "Please enter the new status for the appointment: ", "Absent", "Finished", "Cancelled"
             );
             Statuses status = Statuses.valueOf(stringifiedStatus.trim().toUpperCase(Locale.ROOT));
-            modifyStatus(appointmentId, status);
+            modifyAppointmentStatus(appointmentId, status);
         }
     }
 
-    private void modifyStatus(String appointmentId, Statuses status) {
+    private void modifyAppointmentStatus(String appointmentId, Statuses status) {
         if (isAppointmentCancellable(appointmentId) || !Statuses.CANCELLED.equals(status)){
             appointmentDAO.update(appointmentId, status);
         } else {

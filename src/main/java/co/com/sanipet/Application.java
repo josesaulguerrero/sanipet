@@ -1,6 +1,7 @@
 package co.com.sanipet;
 
 import co.com.sanipet.modules.appointments.AppointmentsMain;
+import co.com.sanipet.modules.stock.StockMain;
 import co.com.sanipet.utils.ConsoleMenu;
 
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class Application {
                 AppointmentsMain.main();
                 break;
             case 2:
-                // TODO call medicines module.
+                StockMain.main();
                 break;
         }
     }

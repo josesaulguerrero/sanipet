@@ -15,3 +15,4 @@ public class Stock {
         this.amount = amount;
     }
 }
+
