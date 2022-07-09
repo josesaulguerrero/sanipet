@@ -33,7 +33,7 @@ public class AppointmentService {
         Patient patient = getPatientBasedOnUserInput(petSelectedOption, owner);
         Appointment appointment = getAppointmentInformation(patient);
         appointmentDAO.save(appointment);
-        System.out.printf("Your appointment has been successfully created with the id: %s", appointment.getId());
+        System.out.printf("Your appointment has been successfully created with the id: %s \n", appointment.getId());
         System.out.println("--------------------------------------------------");
     }
 
@@ -78,12 +78,15 @@ public class AppointmentService {
 
     public void updateAppointment() {
         String appointmentId = ConsoleMenu.renderAndRead("Please enter the Id of the appointment: ").trim();
-        String stringifiedStatus = ConsoleMenu.renderAndVerify(
-                option -> List.of("ABSENT", "FINISHED", "CANCELLED").contains(option.trim().toUpperCase()),
-                "Please enter the new status for the appointment: ", "Absent", "Finished", "Cancelled"
-        );
-        Statuses status = Statuses.valueOf(stringifiedStatus.trim().toUpperCase(Locale.ROOT));
-        modifyStatus(appointmentId, status);
+        Optional<Appointment> appointment = Optional.of(appointmentDAO.findById(appointmentId));
+        if (appointmentDAO.exists(appointmentId)) {
+            String stringifiedStatus = ConsoleMenu.renderAndVerify(
+                    option -> List.of("ABSENT", "FINISHED", "CANCELLED").contains(option.trim().toUpperCase()),
+                    "Please enter the new status for the appointment: ", "Absent", "Finished", "Cancelled"
+            );
+            Statuses status = Statuses.valueOf(stringifiedStatus.trim().toUpperCase(Locale.ROOT));
+            modifyStatus(appointmentId, status);
+        }
     }
 
     private void modifyStatus(String appointmentId, Statuses status) {
@@ -96,7 +99,7 @@ public class AppointmentService {
 
     public boolean isAppointmentCancellable(String Id) {
         int now = LocalDate.now().getDayOfWeek().getValue();
-        int appointmentDay = appointmentDAO.findById(Id).get().getDate().getWeekday();
+        int appointmentDay = appointmentDAO.findById(Id).getDate().getWeekday();
         return appointmentDay - now > 1;
     }
     public  void displayHistory() {

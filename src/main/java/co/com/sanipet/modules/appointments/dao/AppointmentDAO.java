@@ -24,19 +24,21 @@ public class AppointmentDAO {
         return appointments;
     }
 
-    public Optional<Appointment> findById(String Id) {
-        return Optional.of(
-                appointments.stream().filter(appointment -> appointment.getId().equals(Id)).collect(Collectors.toList()).get(0)
-        );
+    public Appointment findById(String id) {
+        return appointments
+                .stream()
+                .filter(element -> element.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("The appointment with the given id doesn't exist."));
     }
 
-    public void update(String Id, Statuses status) {
-        Optional<Appointment> appointment = findById(Id);
-        if(appointment.isPresent()) {
-            appointment.get().setStatus(status);
-        } else {
-            throw new IllegalArgumentException("The appointment with the given id doesn't exist");
-        }
+    public boolean exists(String id) {
+        return Optional.ofNullable(findById(id)).isPresent();
+    }
+
+    public void update(String id, Statuses status) {
+        Appointment appointment = findById(id);
+        appointment.setStatus(status);
     }
 
     public void save(Appointment appointment) {

@@ -20,7 +20,8 @@ public class AppointmentsMain {
         try {
             pickOption(selectedOption);
         } catch (Exception e) {
-            System.out.printf("Error: %s", e.getMessage());
+            System.out.printf("Error: %s \n", e.getMessage());
+            System.out.println("-------------------------------");
         }
     }
 
