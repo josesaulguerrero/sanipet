@@ -6,6 +6,7 @@ import co.com.sanipet.modules.appointments.entities.Schedule;
 import co.com.sanipet.modules.appointments.entities.WorkingDays;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +50,8 @@ public class EmployeeDAO {
         return employees;
     }
 
-    public List<Employee> findAvailable(Roles role, WorkingDays day) {
+    public List<Employee> findAvailable(Roles role, LocalDate date) {
+        WorkingDays day = WorkingDays.fromInteger(date.getDayOfWeek().getValue());
         return employees
                 .stream()
                 .filter(employee -> employee.getRole() == role)

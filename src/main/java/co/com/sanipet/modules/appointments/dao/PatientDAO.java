@@ -6,7 +6,6 @@ import org.apache.commons.lang3.EnumUtils;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.regex.Pattern;
 
 
 public class PatientDAO {
@@ -19,7 +18,7 @@ public class PatientDAO {
     * @param clinicalHistoryId
     * */
     public Patient logIn(String clinicalHistoryId, Owner owner) {
-        Optional<Patient> patient = seekByClinicalHistoryId(clinicalHistoryId);
+        Optional<Patient> patient = findByClinicalHistoryId(clinicalHistoryId);
         if(patient.isEmpty()) {
             System.out.println("Your pet doesn't have an account yet. You will be redirected to Sign Up.");
             patient = Optional.of(create(owner));
@@ -31,9 +30,9 @@ public class PatientDAO {
      * Method to seek a patient by Clinical History ID
      * @param clinicalHistoryId
      * */
-    public Optional<Patient> seekByClinicalHistoryId(String clinicalHistoryId) {
+    public Optional<Patient> findByClinicalHistoryId(String clinicalHistoryId) {
         Optional<Patient> patient = Optional.empty();
-        if(patients.containsKey(clinicalHistoryId)) {
+        if(patients.containsKey(clinicalHistoryId.trim())) {
             patient = Optional.of(patients.get(clinicalHistoryId));
         }
         return patient;

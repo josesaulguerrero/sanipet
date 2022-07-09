@@ -2,6 +2,8 @@ package co.com.sanipet.modules.appointments.entities;
 
 import co.com.sanipet.utils.HashGenerator;
 
+import java.time.LocalDate;
+
 /*
 * Class that represents an appointment
 */
@@ -10,13 +12,13 @@ public class Appointment {
     String id;
     Statuses status;
     AppointmentTypes type;
-    WorkingDays date;
+    LocalDate date;
     Patient patient;
     Employee employeeInCharge;
     Double appointmentCost;
 
     // Constructor
-    public Appointment(AppointmentTypes type, WorkingDays date, Patient patient, Employee employee) {
+    public Appointment(AppointmentTypes type, LocalDate date, Patient patient, Employee employee) {
         this.id = HashGenerator.generateRandomAlphanumericString(10);
         this.status = Statuses.PENDING;
         this.type = type;
@@ -39,7 +41,7 @@ public class Appointment {
         return type;
     }
 
-    public WorkingDays getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

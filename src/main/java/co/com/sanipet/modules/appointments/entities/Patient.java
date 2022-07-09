@@ -25,7 +25,7 @@ public class Patient {
     }
 
     private String generateHistoryId() {
-        return HashGenerator.generateRandomAlphanumericString(6);
+        return HashGenerator.generateRandomAlphanumericString(15);
     }
 
     public Animals getSpecies() {

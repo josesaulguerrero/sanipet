@@ -3,6 +3,7 @@ package co.com.sanipet.modules.appointments.services;
 import co.com.sanipet.modules.appointments.dao.*;
 import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
+import co.com.sanipet.utils.DateUtils;
 import com.google.gson.*;
 import org.apache.commons.lang3.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -67,13 +68,14 @@ public class AppointmentService {
                 option -> EnumUtils.isValidEnum(AppointmentTypes.class, option.trim().toUpperCase(Locale.ROOT)),
                 "Medical", "Surgery", "Aesthetic"
         ).trim().toUpperCase(Locale.ROOT));
-        WorkingDays day = WorkingDays.valueOf(ConsoleMenu.renderAndVerify(
-                option -> EnumUtils.isValidEnum(WorkingDays.class, option.trim().toUpperCase(Locale.ROOT)),
-                "Which day of the week do you prefer the appointment in?"
-        ).trim().toUpperCase(Locale.ROOT));
-        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), day).get(0);
+        String stringifiedDate = ConsoleMenu.renderAndVerify(
+                option -> DateUtils.isValidDate(option) && LocalDate.parse(option).isAfter(LocalDate.now()),
+                "What date do you need the appointment for? (YYYY-MM-DD)"
+        );
+        LocalDate date = LocalDate.parse(stringifiedDate);
+        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), date).get(0);
 
-        return new Appointment(type, day, patient, employee);
+        return new Appointment(type, date, patient, employee);
     }
 
     public void updateAppointment() {
@@ -98,9 +100,9 @@ public class AppointmentService {
     }
 
     public boolean isAppointmentCancellable(String Id) {
-        int now = LocalDate.now().getDayOfWeek().getValue();
-        int appointmentDay = appointmentDAO.findById(Id).getDate().getWeekday();
-        return appointmentDay - now > 1;
+        LocalDate now = LocalDate.now();
+        LocalDate appointmentDay = appointmentDAO.findById(Id).getDate();
+        return now.isBefore(appointmentDay.minusDays(1));
     }
     public  void displayHistory() {
         List<Appointment> appointments = appointmentDAO.findAll();
