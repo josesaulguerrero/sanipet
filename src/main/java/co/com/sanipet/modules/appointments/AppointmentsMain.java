@@ -46,6 +46,9 @@ public class AppointmentsMain {
                 "1. is your pet registered? Log in.", "2. don't they have an account yet? Sign up"
         ));
         Patient patient = getPatientBasedOnUserInput(petSelectedOption, owner);
+        appointmentDAO.save(appointmentDAO.create(patient));
+        System.out.println("Your appointment has been successfully created.");
+        System.out.println("--------------------------------------------------");
     }
 
     private static Owner getOwnerBasedOnUserInput(Integer selectedOption) {
