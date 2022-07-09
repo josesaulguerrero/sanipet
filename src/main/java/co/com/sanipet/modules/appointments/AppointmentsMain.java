@@ -12,6 +12,7 @@ public class AppointmentsMain {
     private static final AppointmentDAO appointmentDAO = new AppointmentDAO();
     private static final OwnerDAO ownerDAO = new OwnerDAO();
     private static final PatientDAO patientDAO = new PatientDAO();
+
     public static void main() {
         int selectedOption = Integer.parseInt(
                 ConsoleMenu.renderAndVerify(
@@ -71,21 +72,7 @@ public class AppointmentsMain {
         return patient;
     }
 
-
-    /*private static Appointment getAppointmentInformation(Patient patient){
-        System.out.println("What kind of appointment do you need?");
-        int appointmentOption = Integer.parseInt(ConsoleMenu.renderAndVerify(
-                (option) -> NumberUtils.isParsable(option) && Range.between(1, 3).contains(Integer.parseInt(option)),
-                "1. Medical", "2. Surgery", "3. Aesthetic"
-        ));
-        AppointmentTypes type = getAppointmentType(appointmentOption);
-        WorkingDays day = WorkingDays.valueOf(ConsoleMenu.renderAndRead("Which day of the week do you prefer the " +
-                "appointment in?").toUpperCase(Locale.ROOT).trim());
-        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), day).get(0);
-        return new Appointment(type, day, patient, employee);
-    }
-
-    private static AppointmentTypes getAppointmentType(int option) {
+    /*private static AppointmentTypes getAppointmentType(int option) {
         switch (option){
             case 1:
             default:
