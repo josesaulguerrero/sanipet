@@ -83,7 +83,7 @@ public class AppointmentsMain {
     }
 
     private static void updateAppointment() {
-        String appointmentId = ConsoleMenu.renderAndRead("Please enter the Id of the appointment: ");
+        String appointmentId = ConsoleMenu.renderAndRead("Please enter the Id of the appointment: ").trim();
         if (appointmentDAO.appointmentExists(appointmentId)) {
             String stringifiedStatus = ConsoleMenu.renderAndVerify(
                     (option) -> EnumUtils.isValidEnum(Statuses.class, option.trim().toUpperCase(Locale.ROOT)),
@@ -91,8 +91,6 @@ public class AppointmentsMain {
             );
             Statuses status = Statuses.valueOf(stringifiedStatus.trim().toUpperCase(Locale.ROOT));
             appointmentDAO.update(appointmentId, status);
-            System.out.println("The appointment has been updated.");
-            System.out.println("----------------------------------------------------");
         } else {
             System.out.println("No appointment with the given id exists.");
             System.out.println("----------------------------------------------------");

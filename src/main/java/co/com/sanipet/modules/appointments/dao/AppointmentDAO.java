@@ -4,9 +4,11 @@ import co.com.sanipet.modules.appointments.entities.*;
 import co.com.sanipet.utils.ConsoleMenu;
 import org.apache.commons.lang3.EnumUtils;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /*
 *Class that represents the appointments in memory
@@ -36,16 +38,35 @@ public class AppointmentDAO {
         return new Appointment(type, day, patient, employee);
     }
 
+    public Optional<Appointment> findById(String Id) {
+        return appointments.stream().reduce((accumulator, element) -> {
+            if (element.getId().equals(Id)) {
+                accumulator = element;
+            }
+            return accumulator;
+        });
+    }
+
     public boolean appointmentExists(String Id) {
         return appointments.stream().anyMatch(appointment -> appointment.getId().equals(Id));
     }
 
+    public boolean isAppointmentCancellable(String Id) {
+        int now = LocalDate.now().getDayOfWeek().getValue() - 1;
+        int appointmentDay = findById(Id).get().getDate().getWeekday();
+        return appointmentDay - now > 1;
+    }
+
     public void update(String Id, Statuses status) {
-        appointments.forEach(appointment -> {
-            if (appointment.getId().equals(Id)) {
-                appointment.setStatus(status);
-            }
-        });
+        if (isAppointmentCancellable(Id) || !status.equals(Statuses.CANCELLED)){
+            findById(Id).get().setStatus(status);
+            System.out.println("The appointment has been updated successfully");
+            System.out.println("----------------------------------------------------");
+        } else {
+            System.out.println("The appointment couldn't be updated.");
+            System.out.println("-----------------------------------------------" +
+                    "-----");
+        }
     }
 
     public void save(Appointment appointment) {
