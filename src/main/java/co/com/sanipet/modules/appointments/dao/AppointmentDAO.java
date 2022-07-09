@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /*
 *Class that represents the appointments in memory
@@ -23,49 +24,18 @@ public class AppointmentDAO {
         return appointments;
     }
 
-    public Appointment create(Patient patient) {
-        System.out.println("What kind of appointment do you need? (MEDICAL/SURGERY/AESTHETIC)");
-        AppointmentTypes type = AppointmentTypes.valueOf(ConsoleMenu.renderAndVerify(
-                option -> EnumUtils.isValidEnum(AppointmentTypes.class, option.trim().toUpperCase(Locale.ROOT)),
-                "Medical", "Surgery", "Aesthetic"
-        ).trim().toUpperCase(Locale.ROOT));
-        WorkingDays day = WorkingDays.valueOf(ConsoleMenu.renderAndVerify(
-                option -> EnumUtils.isValidEnum(WorkingDays.class, option.trim().toUpperCase(Locale.ROOT)),
-                "Which day of the week do you prefer the appointment in?"
-        ).trim().toUpperCase(Locale.ROOT));
-        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), day).get(0);
-
-        return new Appointment(type, day, patient, employee);
-    }
-
     public Optional<Appointment> findById(String Id) {
-        return appointments.stream().reduce((accumulator, element) -> {
-            if (element.getId().equals(Id)) {
-                accumulator = element;
-            }
-            return accumulator;
-        });
-    }
-
-    public boolean appointmentExists(String Id) {
-        return appointments.stream().anyMatch(appointment -> appointment.getId().equals(Id));
-    }
-
-    public boolean isAppointmentCancellable(String Id) {
-        int now = LocalDate.now().getDayOfWeek().getValue() - 1;
-        int appointmentDay = findById(Id).get().getDate().getWeekday();
-        return appointmentDay - now > 1;
+        return Optional.of(
+                appointments.stream().filter(appointment -> appointment.getId().equals(Id)).collect(Collectors.toList()).get(0)
+        );
     }
 
     public void update(String Id, Statuses status) {
-        if (isAppointmentCancellable(Id) || !status.equals(Statuses.CANCELLED)){
-            findById(Id).get().setStatus(status);
-            System.out.println("The appointment has been updated successfully");
-            System.out.println("----------------------------------------------------");
+        Optional<Appointment> appointment = findById(Id);
+        if(appointment.isPresent()) {
+            appointment.get().setStatus(status);
         } else {
-            System.out.println("The appointment couldn't be updated.");
-            System.out.println("-----------------------------------------------" +
-                    "-----");
+            throw new IllegalArgumentException("The appointment with the given id doesn't exist");
         }
     }
 
