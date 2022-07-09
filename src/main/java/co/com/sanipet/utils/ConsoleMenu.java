@@ -1,9 +1,14 @@
 package co.com.sanipet.utils;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public class ConsoleMenu {
     public static String renderAndRead(String ...options) {
@@ -30,6 +35,14 @@ public class ConsoleMenu {
             answer = Optional.of(renderAndRead(question));
         }
         return answer.get();
+    }
+
+    public static LocalDate renderAndVerifyDate(String question) {
+        String stringifiedDate = renderAndVerify(
+                DateUtils::isValidDate, // method referencing
+                question
+        );
+        return LocalDate.parse(stringifiedDate);
     }
 
     private static String readLineFromConsole() {

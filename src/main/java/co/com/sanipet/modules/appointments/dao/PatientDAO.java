@@ -54,13 +54,8 @@ public class PatientDAO {
                 (option) -> List.of("YES", "NO").contains(option.toUpperCase(Locale.ROOT)),
                 "Is the patient vaccinated? (YES/NO)"
         ).toUpperCase(Locale.ROOT).equals("YES");
-        LocalDate patientLastDeworming = LocalDate.parse(
-            ConsoleMenu.renderAndVerify(
-                (date) -> Pattern.compile("\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])", Pattern.MULTILINE)
-                .matcher(date).find(),
-                "When the patient was dewormed? (YYYY-MM-DD)"
-            )
-        );
+        LocalDate patientLastDeworming = ConsoleMenu.renderAndVerifyDate("When was the patient last dewormed? " +
+                "(YYYY-MM-DD)");
         return new Patient(patientSpecies, patientName, patientBreed, patientVaccinated, patientLastDeworming, owner);
     }
 
