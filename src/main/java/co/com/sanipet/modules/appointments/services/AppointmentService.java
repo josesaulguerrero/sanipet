@@ -11,13 +11,14 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class AppointmentService {
+    private final EmployeeService employeeService = new EmployeeService();
     private final PatientService patientService = new PatientService();
-    private final AppointmentDAO appointmentDAO = new AppointmentDAO();
-    private final EmployeeDAO employeeDAO = new EmployeeDAO(); // find available
+    private final OwnerService ownerService = new OwnerService();
 
-    private final OwnerDAO ownerDAO = new OwnerDAO(); // create the owner
+    private final AppointmentDAO appointmentDAO = new AppointmentDAO();
 
     public void registerNewAppointment() {
         Predicate<String> validator =
@@ -41,11 +42,15 @@ public class AppointmentService {
     private Owner getOwnerBasedOnUserInput(Integer selectedOption) {
         Owner owner;
         if (selectedOption.equals(1)) {
-            String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
-            owner = (ownerDAO.logIn(DNI));
+            try {
+                String DNI = ConsoleMenu.renderAndRead("What is you DNI?");
+                owner = ownerService.logIn(DNI);
+            } catch (Exception e) {
+                System.out.printf("%s You will be redirected to Sign Up \n", e.getMessage());
+                owner = ownerService.registerNewOwner();
+            }
         } else {
-            owner = ownerDAO.create();
-            ownerDAO.save(owner);
+            owner = ownerService.registerNewOwner();
         }
         return owner;
     }
@@ -77,7 +82,7 @@ public class AppointmentService {
                 "What date do you need the appointment for? (YYYY-MM-DD)"
         );
         LocalDate date = LocalDate.parse(stringifiedDate);
-        Employee employee = employeeDAO.findAvailable(type.findAssociatedRole(), date).get(0);
+        Employee employee = employeeService.findAvailable(type.findAssociatedRole(), date).get(0);
 
         return new Appointment(type, date, patient, employee);
     }
@@ -108,14 +113,33 @@ public class AppointmentService {
         LocalDate appointmentDay = appointmentDAO.findById(Id).getDate();
         return now.isBefore(appointmentDay.minusDays(1));
     }
-    public  void displayHistory() {
-        List<Appointment> appointments = appointmentDAO.findAll();
-        for (Appointment appointment : appointments) {
+
+    private void printRegisters(List<Appointment> registers) {
+        for (Appointment appointment : registers) {
             System.out.println("----------------------------------");
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             JsonElement prettyJSON = JsonParser.parseString(gson.toJson(appointment));
             System.out.println(gson.toJson(prettyJSON));
             System.out.println("----------------------------------");
         }
+    }
+
+    private void showFilteredByDay(){
+        LocalDate dateToCheck = ConsoleMenu.renderAndVerifyDate(
+                "Which day in the history do you want to check? (YYYY-MM-DD)"
+        );
+        List<Appointment> registers = this.appointmentDAO.findAll()
+            .stream().filter(appointment -> appointment.getDate().equals(dateToCheck)).collect(Collectors.toList());
+        printRegisters(registers);
+    }
+
+    public  void displayHistory() {
+        Integer selectedOption = Integer.valueOf(ConsoleMenu.renderAndVerify(
+            (option) -> NumberUtils.isCreatable(option) && Range.between(1,2).contains(Integer.parseInt(option.trim())),
+            "1. Check the whole history", "2. Check history by day."
+        ).trim());
+
+        if (selectedOption.equals(1)) printRegisters(appointmentDAO.findAll());
+        else showFilteredByDay();
     }
 }
