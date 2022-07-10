@@ -19,6 +19,10 @@ public class MedicineDAO {
                 .orElseThrow(() -> new IllegalArgumentException("The element with the given id doesn't exist in stock."));
     }
 
+    public boolean exists(String id) {
+        return this.stock.containsKey(id);
+    }
+
     public void saveElement(Medicine medicine) {
         this.stock.put(medicine.getId(), medicine);
     }

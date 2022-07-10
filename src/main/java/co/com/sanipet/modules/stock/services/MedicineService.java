@@ -1,10 +1,15 @@
 package co.com.sanipet.modules.stock.services;
 
+import co.com.sanipet.modules.appointments.entities.Appointment;
 import co.com.sanipet.modules.stock.dao.MedicineDAO;
 import co.com.sanipet.modules.stock.entities.Medicine;
 import co.com.sanipet.modules.stock.entities.MedicinePresentation;
 import co.com.sanipet.modules.stock.entities.Stock;
 import co.com.sanipet.utils.ConsoleMenu;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -36,11 +41,34 @@ public class MedicineService {
         medicineDAO.saveElement(create());
     }
 
-    public void removeElementFromStock(String id) {
+    public void removeElementFromStock() {
+        String id = ConsoleMenu.renderAndRead("What is the id of the element?").trim();
         medicineDAO.removeElement(id);
     }
 
-    public void modifyAvailableUnits(String id, Integer newAmount) {
+    private boolean exists(String id) {
+        return medicineDAO.exists(id);
+    }
+
+    public void modifyAvailableUnits() {
+        String id = ConsoleMenu.renderAndRead("What is the id of the element?").trim();
+        if(!exists(id)) {
+            throw new IllegalArgumentException("The element with the given id does not exist.");
+        }
+        int newAmount = Integer.parseInt(ConsoleMenu.renderAndVerify(
+                NumberUtils::isParsable,
+                "What is the new amount for the selected element?"
+        ).trim());
         medicineDAO.updateAvailableUnits(id, newAmount);
+    }
+
+    public void printStock() {
+        for (Medicine medicine : findAll()) {
+            System.out.println("----------------------------------");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            JsonElement prettyJSON = JsonParser.parseString(gson.toJson(medicine));
+            System.out.println(gson.toJson(prettyJSON));
+            System.out.println("----------------------------------");
+        }
     }
 }
