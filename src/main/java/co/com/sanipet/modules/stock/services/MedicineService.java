@@ -8,6 +8,7 @@ import co.com.sanipet.utils.ConsoleMenu;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.List;
 import java.util.Locale;
 
 public class MedicineService {
@@ -27,7 +28,19 @@ public class MedicineService {
         return new Medicine(name, presentation, new Stock(amount));
     }
 
+    public List<Medicine> findAll() {
+        return medicineDAO.findAll();
+    }
+
     public void addElementToStock() {
         medicineDAO.saveElement(create());
+    }
+
+    public void removeElementFromStock(String id) {
+        medicineDAO.removeElement(id);
+    }
+
+    public void modifyAvailableUnits(String id, Integer newAmount) {
+        medicineDAO.updateAvailableUnits(id, newAmount);
     }
 }
