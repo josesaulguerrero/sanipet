@@ -17,6 +17,7 @@ public class AppointmentService {
     private final EmployeeService employeeService = new EmployeeService();
     private final PatientService patientService = new PatientService();
     private final OwnerService ownerService = new OwnerService();
+    private final InvoiceService invoiceService = new InvoiceService();
 
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
 
@@ -101,6 +102,12 @@ public class AppointmentService {
     }
 
     private void modifyAppointmentStatus(String appointmentId, Statuses status) {
+        if(Statuses.FINISHED.equals(status)) {
+            appointmentDAO.update(appointmentId, status);
+            Invoice invoice = invoiceService.startBilling(appointmentDAO.findById(appointmentId));
+            ConsoleMenu.printPrettifiedObject(invoice);
+        }
+        
         if (isAppointmentCancellable(appointmentId) || !Statuses.CANCELLED.equals(status)){
             appointmentDAO.update(appointmentId, status);
         } else {
@@ -113,24 +120,14 @@ public class AppointmentService {
         LocalDate appointmentDay = appointmentDAO.findById(Id).getDate();
         return now.isBefore(appointmentDay.minusDays(1));
     }
-
-    private void printRegisters(List<Appointment> registers) {
-        for (Appointment appointment : registers) {
-            System.out.println("----------------------------------");
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonElement prettyJSON = JsonParser.parseString(gson.toJson(appointment));
-            System.out.println(gson.toJson(prettyJSON));
-            System.out.println("----------------------------------");
-        }
-    }
-
+    
     private void showFilteredByDay(){
         LocalDate dateToCheck = ConsoleMenu.renderAndVerifyDate(
                 "Which day in the history do you want to check? (YYYY-MM-DD)"
         );
         List<Appointment> registers = this.appointmentDAO.findAll()
             .stream().filter(appointment -> appointment.getDate().equals(dateToCheck)).collect(Collectors.toList());
-        printRegisters(registers);
+        ConsoleMenu.printPrettifiedList(registers);
     }
 
     public  void displayHistory() {
@@ -139,7 +136,7 @@ public class AppointmentService {
             "1. Check the whole history", "2. Check history by day."
         ).trim());
 
-        if (selectedOption.equals(1)) printRegisters(appointmentDAO.findAll());
+        if (selectedOption.equals(1)) ConsoleMenu.printPrettifiedList(appointmentDAO.findAll());
         else showFilteredByDay();
     }
 }

@@ -69,13 +69,11 @@ public class MedicineService {
         medicineDAO.updateAvailableUnits(id, newAmount);
     }
 
+    public void modifyAvailableUnits(String id, Integer newAmount) {
+        medicineDAO.updateAvailableUnits(id, newAmount);
+    }
+
     public void printStock() {
-        for (Medicine medicine : findAll()) {
-            System.out.println("----------------------------------");
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            JsonElement prettyJSON = JsonParser.parseString(gson.toJson(medicine));
-            System.out.println(gson.toJson(prettyJSON));
-            System.out.println("----------------------------------");
-        }
+        ConsoleMenu.printPrettifiedList(findAll());
     }
 }

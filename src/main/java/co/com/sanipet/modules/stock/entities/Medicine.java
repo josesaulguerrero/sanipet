@@ -65,7 +65,7 @@ public class Medicine {
                 "name='" + name + '\'' +
                 ", presentation=" + presentation +
                 ",price per unit" + pricePerUnit +
-                ", stock=" + stock +
+                ", stock=" + stock.toString() +
                 '}';
     }
 }

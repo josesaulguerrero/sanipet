@@ -27,11 +27,20 @@ public class InvoiceService {
                 medicines.put(pair.getLeft(), pair.getRight());
             }
         }
+        substractMedicinesFromStock(medicines);
         return new Invoice(
                 medicines,
                 appointment,
                 calcSubtotal(appointment.getAppointmentCost(), getMedicinesSubtotal(medicines))
         );
+    }
+
+    private void substractMedicinesFromStock(Map<Medicine, Integer> medicines) {
+        for (Map.Entry<Medicine, Integer> pair : medicines.entrySet()) {
+            Integer availableAmount = pair.getKey().getStock().getAmount();
+            Integer unitsToSubstract = pair.getValue();
+            medicineService.findById(pair.getKey().getId()).getStock().setAmount(availableAmount - unitsToSubstract);
+        }
     }
 
     private Double getMedicinesSubtotal(Map<Medicine, Integer> medicines) {
@@ -47,7 +56,7 @@ public class InvoiceService {
     }
 
     public Pair<Medicine, Integer> addNewItem() {
-        String id = ConsoleMenu.renderAndRead("What is the id of the medicine?");
+        String id = ConsoleMenu.renderAndRead("What is the id of the medicine?").trim();
         Medicine medicine = medicineService.findById(id);
         Integer amount = Integer.parseInt(ConsoleMenu.renderAndVerify(
                 (text) -> NumberUtils.isParsable(text) && Integer.parseInt(text.trim()) <= medicine.getStock().getAmount(),
