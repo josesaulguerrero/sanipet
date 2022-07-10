@@ -10,11 +10,13 @@ public class Medicine {
     private final String name;
     private final String id;
     private final MedicinePresentation presentation;
+    private Integer pricePerUnit;
     private Stock stock;
 
     //Constructor
-    public Medicine(String name, MedicinePresentation presentation, Stock stock) {
+    public Medicine(String name, MedicinePresentation presentation, Integer pricePerUnit, Stock stock) {
         this.name = name;
+        this.pricePerUnit = pricePerUnit;
         this.id = HashGenerator.generateRandomAlphanumericString(20);
         this.presentation = presentation;
         this.stock = stock;
@@ -25,6 +27,10 @@ public class Medicine {
     */
     public String getName() {
         return name;
+    }
+
+    public Integer getPricePerUnit() {
+        return pricePerUnit;
     }
 
     public String getId() {
@@ -58,6 +64,7 @@ public class Medicine {
         return "Medicine{" +
                 "name='" + name + '\'' +
                 ", presentation=" + presentation +
+                ",price per unit" + pricePerUnit +
                 ", stock=" + stock +
                 '}';
     }

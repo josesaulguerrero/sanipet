@@ -2,21 +2,23 @@ package co.com.sanipet.modules.appointments.entities;
 
 import co.com.sanipet.modules.stock.entities.Medicine;
 
+import java.util.Map;
+
 public class Invoice {
     // Attributes
-    private final Medicine medicine;
+    private final Map<Medicine, Integer> medicines;
     private final Appointment appointment;
     private static final Double taxPercentage = 0.19;
-    private final Integer total;
+    private final Double subtotal;
 
-    public Invoice(Medicine medicine, Appointment appointment, Integer total) {
-        this.medicine = medicine;
+    public Invoice(Map<Medicine, Integer> medicines, Appointment appointment, Double total) {
+        this.medicines = medicines;
         this.appointment = appointment;
-        this.total = total;
+        this.subtotal = total;
     }
 
-    public Medicine getMedicine() {
-        return medicine;
+    public Map<Medicine, Integer> getMedicine() {
+        return medicines;
     }
 
     public Appointment getAppointment() {
@@ -27,7 +29,7 @@ public class Invoice {
         return taxPercentage;
     }
 
-    public Integer getTotal() {
-        return total;
+    public Double getSubtotal() {
+        return subtotal;
     }
 }

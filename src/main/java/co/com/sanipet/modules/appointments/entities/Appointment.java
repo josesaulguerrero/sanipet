@@ -53,6 +53,10 @@ public class Appointment {
         return employeeInCharge;
     }
 
+    public Double getAppointmentCost() {
+        return appointmentCost;
+    }
+
     public void setStatus(Statuses status) {
         this.status = status;
     }

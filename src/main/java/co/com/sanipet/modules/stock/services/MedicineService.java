@@ -1,6 +1,5 @@
 package co.com.sanipet.modules.stock.services;
 
-import co.com.sanipet.modules.appointments.entities.Appointment;
 import co.com.sanipet.modules.stock.dao.MedicineDAO;
 import co.com.sanipet.modules.stock.entities.Medicine;
 import co.com.sanipet.modules.stock.entities.MedicinePresentation;
@@ -26,15 +25,23 @@ public class MedicineService {
                 "Enter the presentation of the medicine: ", "Pills", "Syrup"
         ).trim().toUpperCase(Locale.ROOT);
         MedicinePresentation presentation = MedicinePresentation.valueOf(stringifiedPresentation);
+        Integer pricePerUnit = Integer.parseInt(ConsoleMenu.renderAndVerify(
+                NumberUtils::isParsable,
+                "What is the price per unit to the element to add?"
+        ).trim());
         int amount = Integer.parseInt(ConsoleMenu.renderAndVerify(
                 NumberUtils::isParsable,
                 "What is the amount of the product to add?"
         ).trim());
-        return new Medicine(name, presentation, new Stock(amount));
+        return new Medicine(name, presentation, pricePerUnit, new Stock(amount));
     }
 
     public List<Medicine> findAll() {
         return medicineDAO.findAll();
+    }
+
+    public Medicine findById(String id) {
+        return medicineDAO.findById(id);
     }
 
     public void addElementToStock() {
